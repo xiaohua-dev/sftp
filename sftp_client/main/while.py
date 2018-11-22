@@ -35,6 +35,7 @@ class FtpClient(object):
                 print("put result: %s" %(self.Put(raw_input.split()[0],raw_input.split()[1],raw_input.split()[2])))
                 result = self.Put(raw_input.split()[0], raw_input.split()[1], raw_input.split()[2])
                 self.client.send(json.dumps(result).encode("utf-8"))
+                print(self.client.recv(1024))
             elif fun_result == "get":
                 print("put result: %s" %(self.Get(raw_input.split()[0],raw_input.split()[1],raw_input.split()[2])))
                 result = self.Get(raw_input.split()[0], raw_input.split()[1], raw_input.split()[2])

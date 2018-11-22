@@ -12,8 +12,8 @@ import json
 
 
 class MyTCPHandler(socketserver.BaseRequestHandler):
-    #def Get(self,*args):
-    #    pass
+    def get(self,*args):
+        print("aaaaa")
 
     def handle(self):
         while True:
@@ -21,7 +21,13 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
             self.data = self.request.recv(1024).strip()
             print(self.data)
             cms_result = json.loads(self.data.decode())
-            print(cms_result)
+            action = cms_result["action"]
+            if hasattr(self, action):
+                func = getattr(self,action)
+                func(cms_result)
+            else:
+                print("the methond is not.")
+                self.request.send(b'404')
 
 
 if __name__ == "__main__":
