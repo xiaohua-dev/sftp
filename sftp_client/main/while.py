@@ -31,19 +31,11 @@ class FtpClient(object):
             if len(raw_input) == 0:
                 continue
             fun_result = raw_input.split()[0]
-            if fun_result == "put":
-                print("put result: %s" %(self.Put(raw_input.split()[0],raw_input.split()[1],raw_input.split()[2])))
-                result = self.Put(raw_input.split()[0], raw_input.split()[1], raw_input.split()[2])
-                self.client.send(json.dumps(result).encode("utf-8"))
+            if hasattr(self,fun_result):
+                func = getattr(self, fun_result)
+                return_result = func(raw_input.split()[0], raw_input.split()[1], raw_input.split()[2])
+                self.client.send(json.dumps(return_result).encode("utf-8"))
                 print(self.client.recv(1024))
-            elif fun_result == "get":
-                print("put result: %s" %(self.Get(raw_input.split()[0],raw_input.split()[1],raw_input.split()[2])))
-                result = self.Get(raw_input.split()[0], raw_input.split()[1], raw_input.split()[2])
-                self.client.send(json.dumps(result).encode("utf-8"))
-            elif fun_result == "create":
-                print("put result: %s" %(self.Create(raw_input.split()[0],raw_input.split()[1],raw_input.split()[2])))
-                result = self.Create(raw_input.split()[0], raw_input.split()[1], raw_input.split()[2])
-                self.client.send(json.dumps(result).encode("utf-8"))
             else:
                 self.Help()
 

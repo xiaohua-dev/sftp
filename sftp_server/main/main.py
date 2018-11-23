@@ -12,7 +12,7 @@ import json
 
 
 class MyTCPHandler(socketserver.BaseRequestHandler):
-    def get(self,*args):
+    def Get(self,*args):
         print("aaaaa")
 
     def handle(self):
