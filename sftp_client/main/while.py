@@ -55,11 +55,11 @@ class FtpClient(object):
         }
         return msg_dir
 
-    def Create(self, create, home, chmod):
+    def Create(self, create, home, user_name):
         msg_dir = {
-            "action": create,
-            "home_path": home,
-            "chmod": chmod
+             "action": create,
+             "home_path": home,
+             "user_name": user_name
         }
         return msg_dir
 
@@ -67,5 +67,5 @@ class FtpClient(object):
 
 
 sftp = FtpClient()
-sftp.Sftp_connect('localhost', 9999)
+sftp.Sftp_connect('39.105.128.207', 9999)
 sftp.check_input()

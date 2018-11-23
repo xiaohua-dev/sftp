@@ -19,8 +19,9 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
     def Create(self,*args):
         print("bbbbb")
         data = json.loads(self.data.decode())
-        print(data["action"], data["home_path"], data["chmod"])
-        command_status = os.popen('useradd %s' %(data["home_path"])).read()
+        print(data["action"], data["home_path"], data["user_name"])
+        command_path = os.popen()
+        command_status = os.popen('useradd %s' %(data["user_name"])).read()
         print(command_status)
         print("ccccc")
         self.request.send(b'sucess')
