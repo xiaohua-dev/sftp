@@ -23,8 +23,10 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         command_path = os.popen('mkdir /home/%s' %(data["home_path"])).read()
         command_status = os.popen('useradd -s /sbin/nologin %s' %(data["user_name"])).read()
         print(command_status)
+        command_org = os.popen('chown -R %s.%s /home/%s' %(data["user_name"],data["user_name"],data["home_path"])).read()
         print("ccccc")
-        self.request.send(b'%s' %(command_status))
+        command_reslut = os.popen('ls -lh /home').read()
+        self.request.send(b'%s,%s' %(command_status,command_reslut))
 
     def handle(self):
         while True:
