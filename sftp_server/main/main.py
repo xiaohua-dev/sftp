@@ -20,11 +20,11 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         print("bbbbb")
         data = json.loads(self.data.decode())
         print(data["action"], data["home_path"], data["user_name"])
-        command_path = os.popen()
-        command_status = os.popen('useradd %s' %(data["user_name"])).read()
+        command_path = os.popen('mkdir /home/%s' %(data["home_path"])).read()
+        command_status = os.popen('useradd -s /sbin/nologin %s' %(data["user_name"])).read()
         print(command_status)
         print("ccccc")
-        self.request.send(b'sucess')
+        self.request.send(b'%s' %(command_status))
 
     def handle(self):
         while True:
