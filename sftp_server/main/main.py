@@ -26,7 +26,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         command_org = os.popen('chown -R %s.%s /home/%s' %(data["user_name"],data["user_name"],data["home_path"])).read()
         print("ccccc")
         command_reslut = os.popen('ls -lh /home').read()
-        self.request.send(b'%s,%s' %(command_status,command_reslut))
+        self.request.send(b'%s,%s' %(command_status.encode("utf-8"),command_reslut.encode("utf-8")))
 
     def handle(self):
         while True:
