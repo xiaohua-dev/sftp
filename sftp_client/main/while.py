@@ -25,9 +25,23 @@ class FtpClient(object):
         """
         print(msg)
 
+    def Login_choise(self):
+        print("""
+            欢迎登录到简单版的sftp服务，登录|注册
+        """)
+        while True:
+            first_input = input("登录|注册 >>").strip()
+            if len(first_input) == 0:
+                continue
+            if first_input == "登录":
+                self.check_input()
+            elif first_input == "注册":
+                print("faild")
+
+
     def check_input(self):
         while True:
-            raw_input = input(">>").strip()
+            raw_input = input("输入账号>>").strip()
             if len(raw_input) == 0:
                 continue
             fun_result = raw_input.split()[0]
@@ -68,4 +82,5 @@ class FtpClient(object):
 
 sftp = FtpClient()
 sftp.Sftp_connect('39.105.128.207', 9999)
+sftp.Login_choise()
 sftp.check_input()

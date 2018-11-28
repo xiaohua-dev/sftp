@@ -36,7 +36,7 @@ class Sftp_api(object):
         self.signal = signal
 
     def ReadJson(self):
-        Json_file = open("package.json", 'r+', encoding='utf-8')
+        Json_file = open("%s.json" %(self.name), 'r+', encoding='utf-8')
         Read_file = json.load(Json_file)
         js_name = Read_file["name"]
         return Read_file
@@ -57,4 +57,4 @@ class Sftp_api(object):
 
 a = Sftp_api("xiaopeng","76cd438bd0e8899a61aff632ace54dbb",11,'/home/xiao',"注册")
 a.Client_user_Signal()
-a.Check_Space()
+#a.Check_Space()
