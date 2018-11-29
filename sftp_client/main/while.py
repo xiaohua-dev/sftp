@@ -36,14 +36,24 @@ class FtpClient(object):
             if first_input == "登录":
                 self.check_input()
             elif first_input == "注册":
-                print("faild")
+                self.Create_user_input()
+            elif first_input == "exit":
+                print("退出sftp服务")
+                exit()
+
 
 
     def check_input(self):
         while True:
             raw_input = input("输入账号>>").strip()
+            raw_passwd_input = input("请输入密码>>").strip()
             if len(raw_input) == 0:
                 continue
+            if len(raw_passwd_input) == 0:
+                continue
+            if raw_input == "exit":
+                print("退出sftp服务系统")
+                exit()
             fun_result = raw_input.split()[0]
             if hasattr(self,fun_result):
                 func = getattr(self, fun_result)
@@ -52,6 +62,24 @@ class FtpClient(object):
                 print(self.client.recv(1024))
             else:
                 self.Help()
+
+    def Create_user_input(self):
+        while True:
+            action_input = input("接下来的动作>>").strip()
+            create_user_input = input("请输入新建账号>>").strip()
+            create_passwd_input = input("输入新用户密码>>").strip()
+            if len(create_user_input) == 0:
+                continue
+            elif len(create_passwd_input) == 0:
+                continue
+            elif len(action_input) == 0:
+                continue
+
+            if hasattr(self, action_input):
+                func = getattr(self, action_input)
+                return_create_result = func(action_input, create_user_input, create_passwd_input)
+                print(return_create_result)
+
 
     def Put(self, put, filename, filesize):
         msg_dir = {
@@ -69,11 +97,11 @@ class FtpClient(object):
         }
         return msg_dir
 
-    def Create(self, create, home, user_name):
+    def Create(self, action, user_name, home):
         msg_dir = {
-             "action": create,
-             "home_path": home,
-             "user_name": user_name
+             "action": action,
+             "user_name": user_name,
+             "home_path": home
         }
         return msg_dir
 

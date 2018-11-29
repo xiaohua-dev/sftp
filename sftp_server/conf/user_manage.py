@@ -39,6 +39,6 @@ class User_Manger(object):
             print("The %s password is wrong..." % self.name)
 
 
-c = User_Manger("xiaopeng",'dasdsada')
-c.Check_Passwd()
-c.Check_User()
+#c = User_Manger("xiaopeng",'dasdsada')
+#c.Check_Passwd()
+#c.Check_User()
