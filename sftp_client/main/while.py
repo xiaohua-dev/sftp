@@ -7,6 +7,7 @@ import socket
 import time
 import sys
 import json
+from md5_api import Md5_handle
 
 class FtpClient(object):
     def __init__(self):
@@ -75,9 +76,11 @@ class FtpClient(object):
             elif len(action_input) == 0:
                 continue
 
+            md5_result = Md5_handle(create_passwd_input).get_token()
+
             if hasattr(self, action_input):
                 func = getattr(self, action_input)
-                return_create_result = func(action_input, create_user_input, create_passwd_input)
+                return_create_result = func(action_input, create_user_input, md5_result)
                 print(return_create_result)
                 self.client.send(json.dumps(return_create_result).encode("utf-8"))
                 print(self.client.recv(1024))
