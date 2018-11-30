@@ -20,12 +20,12 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         print("bbbbb")
         data = json.loads(self.data.decode())
         print(data["action"], data["home_path"], data["user_name"])
-        command_path = os.popen('mkdir /home/%s' %(data["home_path"])).read()
-        command_status = os.popen('useradd -s /sbin/nologin %s' %(data["user_name"])).read()
-        command_org = os.popen('chown -R %s.%s /home/%s' %(data["user_name"],data["user_name"],data["home_path"])).read()
-        command_reslut = os.popen('ls -lh /home').read()
-        print(command_reslut)
-        self.request.send(command_reslut.encode("utf-8"))
+        #os.popen('mkdir /home/%s' %(data["home_path"])).read()
+        #os.popen('useradd -s /sbin/nologin %s' %(data["user_name"])).read()
+        #os.popen('chown -R %s.%s /home/%s' %(data["user_name"],data["user_name"],data["home_path"])).read()
+        #command_reslut = os.popen('ls -lh /home').read()
+        #print(command_reslut)
+        #self.request.send(command_reslut.encode("utf-8"))
         print("ccccc")
 
     def handle(self):

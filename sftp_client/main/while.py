@@ -79,6 +79,8 @@ class FtpClient(object):
                 func = getattr(self, action_input)
                 return_create_result = func(action_input, create_user_input, create_passwd_input)
                 print(return_create_result)
+                self.client.send(json.dumps(return_create_result).encode("utf-8"))
+                print(self.client.recv(1024))
 
 
     def Put(self, put, filename, filesize):
@@ -97,11 +99,11 @@ class FtpClient(object):
         }
         return msg_dir
 
-    def Create(self, action, user_name, home):
+    def Create(self, action, user_name, password):
         msg_dir = {
              "action": action,
              "user_name": user_name,
-             "home_path": home
+             "password": password
         }
         return msg_dir
 
