@@ -9,6 +9,7 @@ import sys
 import os
 import threading
 import json
+from conf.json_handle import Json_handle
 
 
 class MyTCPHandler(socketserver.BaseRequestHandler):
@@ -18,15 +19,20 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
 
     def Create(self,*args):
         print("bbbbb")
+
         data = json.loads(self.data.decode())
         print(data["action"], data["user_name"], data["password"])
+        Json_handle(data["user_name"],data)
         os.popen('mkdir /home/%s' %(data["user_name"])).read()
         os.popen('useradd -s /sbin/nologin %s' %(data["user_name"])).read()
         os.popen('chown -R %s.%s /home/%s' %(data["user_name"],data["user_name"],data["home_path"])).read()
-        command_reslut = os.popen('ls -lh /home').read()
+        command_reslut = os.popen('ls -d /home/%s' %(data["user_name"])).read()
         print(command_reslut)
         self.request.send(command_reslut.encode("utf-8"))
         print("ccccc")
+
+    def check_user(self):
+        data = json.l
 
     def handle(self):
         while True:

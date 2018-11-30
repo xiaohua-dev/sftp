@@ -1,1 +1,1 @@
-__all__ = ['user_manage']
+__all__ = ['user_manage','json_handle']
