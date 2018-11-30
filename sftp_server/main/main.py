@@ -9,6 +9,8 @@ import sys
 import os
 import threading
 import json
+Base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(Base_dir)
 from conf.json_handle import Json_handle
 
 
