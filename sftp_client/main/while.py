@@ -71,6 +71,8 @@ class FtpClient(object):
     def Create_user_input(self):
         while True:
             action_input = input("接下来的动作>>").strip()
+            if action_input == "login":
+                self.login()
             create_user_input = input("请输入新建账号>>").strip()
             create_passwd_input = input("输入新用户密码>>").strip()
             if len(create_user_input) == 0:
@@ -80,8 +82,6 @@ class FtpClient(object):
             elif len(action_input) == 0:
                 continue
 
-            if action_input == "login":
-                self.login()
             md5_result = Md5_handle(create_passwd_input).get_token()
             if hasattr(self, action_input):
                 func = getattr(self, action_input)
