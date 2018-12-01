@@ -34,6 +34,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
 
     def Login(self,*args):
         data = json.loads(self.data.decode())
+        print(data)
         Json_result = Json_handle(data["user_name"],data).ReadJson()
         print(Json_result)
         
