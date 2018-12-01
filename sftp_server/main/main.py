@@ -32,7 +32,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         self.request.send(command_reslut.encode("utf-8"))
         print("ccccc")
 
-    def check_user(self):
+    def login(self):
         data = json.loads(self.data.decode())
         Json_result = Json_handle(data["user_name"],data)
         print(Json_result)

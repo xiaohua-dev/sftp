@@ -110,6 +110,14 @@ class FtpClient(object):
         }
         return msg_dir
 
+    def Login(self, user_name, password, action="login"):
+        msg_dir = {
+            "action": action,
+            "user_name": user_name,
+            "user_path": password
+        }
+        return msg_dir
+
 
 
 
