@@ -59,10 +59,11 @@ class FtpClient(object):
                 print("退出sftp服务系统")
                 exit()
 
-            fun_result = raw_input.split()[0]
-            if hasattr(self,fun_result):
-                func = getattr(self, fun_result)
-                return_result = func(action_input, raw_input, raw_passwd_input)
+            md5_result = Md5_handle(raw_passwd_input).get_token()
+            if hasattr(self,action_input):
+                func = getattr(self, action_input)
+                return_result = func( raw_input, md5_result)
+                print(return_result)
                 self.client.send(json.dumps(return_result).encode("utf-8"))
                 print(self.client.recv(1024))
             else:
@@ -115,11 +116,11 @@ class FtpClient(object):
         }
         return msg_dir
 
-    def Login(self, user_name, password, action="login"):
+    def Login(self, user_name, password, action="Login"):
         msg_dir = {
             "action": action,
             "user_name": user_name,
-            "user_path": password
+            "password": password
         }
         return msg_dir
 
