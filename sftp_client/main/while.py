@@ -26,7 +26,7 @@ class FtpClient(object):
         """
         print(msg)
 
-    def Login_choise(self):
+    def action_choise(self):
         print("""
             欢迎登录到简单版的sftp服务，登录|注册
         """)
@@ -35,7 +35,7 @@ class FtpClient(object):
             if len(first_input) == 0:
                 continue
             if first_input == "登录":
-                self.check_input()
+                self.login()
             elif first_input == "注册":
                 self.Create_user_input()
             elif first_input == "exit":
@@ -43,22 +43,26 @@ class FtpClient(object):
                 exit()
 
 
-
-    def check_input(self):
+    def login(self):
         while True:
+            action_input = input("接下来的动作>>").strip()
             raw_input = input("输入账号>>").strip()
             raw_passwd_input = input("请输入密码>>").strip()
+
             if len(raw_input) == 0:
                 continue
-            if len(raw_passwd_input) == 0:
+            elif len(raw_passwd_input) == 0:
                 continue
-            if raw_input == "exit":
+            elif len(action_input) == 0:
+                continue
+            if action_input == "exit":
                 print("退出sftp服务系统")
                 exit()
+
             fun_result = raw_input.split()[0]
             if hasattr(self,fun_result):
                 func = getattr(self, fun_result)
-                return_result = func(raw_input.split()[0], raw_input.split()[1], raw_input.split()[2])
+                return_result = func(action_input, raw_input, raw_passwd_input)
                 self.client.send(json.dumps(return_result).encode("utf-8"))
                 print(self.client.recv(1024))
             else:
@@ -76,8 +80,9 @@ class FtpClient(object):
             elif len(action_input) == 0:
                 continue
 
+            if action_input == "login":
+                self.login()
             md5_result = Md5_handle(create_passwd_input).get_token()
-
             if hasattr(self, action_input):
                 func = getattr(self, action_input)
                 return_create_result = func(action_input, create_user_input, md5_result)
@@ -123,5 +128,4 @@ class FtpClient(object):
 
 sftp = FtpClient()
 sftp.Sftp_connect('39.105.128.207', 9999)
-sftp.Login_choise()
-sftp.check_input()
+sftp.action_choise()

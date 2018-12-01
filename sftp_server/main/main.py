@@ -23,7 +23,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         print("bbbbb")
         data = json.loads(self.data.decode())
         print(data["action"], data["user_name"], data["password"])
-        Json_handle(data["user_name"],data)
+        Json_handle(data["user_name"],data).Write()
         os.popen('mkdir /home/%s' %(data["user_name"])).read()
         os.popen('useradd -s /sbin/nologin %s' %(data["user_name"])).read()
         os.popen('chown -R %s.%s /home/%s' %(data["user_name"],data["user_name"],data["user_name"])).read()

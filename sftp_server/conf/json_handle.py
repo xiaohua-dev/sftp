@@ -20,6 +20,7 @@ class Json_handle(object):
         with open('%s/user_dir/%s.json' % (Base_dir,self.json_name), 'w+', encoding="utf-8") as f:
             json.dump(self.arg, f)
             f.close()
+        return "The %s is save suceess...." %(self.json_name)
 
 
     def ReadJson(self):
