@@ -37,6 +37,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         print(data)
         Json_result = Json_handle(data["user_name"],data).ReadJson()
         print(Json_result)
+        self.request.send(b"用户登录成功".encode("utf08"))
         
 
     def handle(self):

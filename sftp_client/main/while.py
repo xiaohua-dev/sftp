@@ -63,7 +63,7 @@ class FtpClient(object):
             if hasattr(self,action_input):
                 func = getattr(self, action_input)
                 return_result = func( raw_input, md5_result)
-                print(return_result)
+                #print(return_result)
                 self.client.send(json.dumps(return_result).encode("utf-8"))
                 print(self.client.recv(1024))
             else:
