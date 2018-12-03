@@ -39,7 +39,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         print(Json_result)
         self.request.send("用户登录成功".encode("utf-8"))
 
-    def Home(self):
+    def Home(self,*args):
         data = json.loads(self.data.decode())
         print(data)
         Json_result = data["command"]

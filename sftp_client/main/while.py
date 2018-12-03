@@ -91,6 +91,7 @@ class FtpClient(object):
             elif action_input in cmd_list:
                 result_cmd = self.Home(action_input,result_front)
                 print("aaaaaaa")
+                self.client.send(json.dumps(result_cmd).encode("utf-8"))
                 print(result_cmd)
                 print(self.client.recv(1024))
 
