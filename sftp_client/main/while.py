@@ -53,6 +53,8 @@ class FtpClient(object):
             if action_input == "exit":
                 print("退出sftp服务系统")
                 exit()
+            elif action_input == "Home":
+                self.home(raw_input)
             raw_input = input("输入账号>>").strip()
             raw_passwd_input = input("请输入密码>>").strip()
 
@@ -73,21 +75,23 @@ class FtpClient(object):
             else:
                 self.Help()
 
-    def home(self, *args):
+    def home(self, arg):
         print("欢迎登录家目录")
         print("""
         可以对家目录的文件或者目录增删改查.
         """)
         while True:
             action_input = input("请输入需要的操作,命令提示help>>").strip()
-            cmd_list = ["ls","rm","cd","mkdir",]
+            result_front = arg
+            cmd_list = ["ls", "rm", "cd", "mkdir"]
             if len(action_input) == 0:
                 continue
             if action_input == "Help":
                 self.Help()
             elif action_input in cmd_list:
-                result_cmd = Home
-
+                result_cmd = self.Home(action_input,result_front)
+                print("aaaaaaa")
+                print(result_cmd)
 
     def Create_user_input(self):
         while True:
@@ -144,12 +148,14 @@ class FtpClient(object):
         }
         return msg_dir
 
-    def Home(self, action, user_name):
-        msf_dir = {
+    def Home(self,command, user_name, action="home"):
+        msg_dir = {
             "action": action,
+            "command": command,
             "user_name": user_name,
             "home": user_name
         }
+        return msg_dir
 
 
 
