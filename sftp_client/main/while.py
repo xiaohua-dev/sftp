@@ -21,8 +21,12 @@ class FtpClient(object):
             get filename
             put filename
             create user
-            ls
+            ls ../..
             cd ../..
+            rm filename
+            rm -rf filedir
+            mkdir filename
+            mkdir filedir
         """
         print(msg)
 
@@ -46,6 +50,9 @@ class FtpClient(object):
     def login(self):
         while True:
             action_input = input("接下来的动作>>").strip()
+            if action_input == "exit":
+                print("退出sftp服务系统")
+                exit()
             raw_input = input("输入账号>>").strip()
             raw_passwd_input = input("请输入密码>>").strip()
 
@@ -55,9 +62,6 @@ class FtpClient(object):
                 continue
             elif len(action_input) == 0:
                 continue
-            if action_input == "exit":
-                print("退出sftp服务系统")
-                exit()
 
             md5_result = Md5_handle(raw_passwd_input).get_token()
             if hasattr(self,action_input):
@@ -65,9 +69,25 @@ class FtpClient(object):
                 return_result = func( raw_input, md5_result)
                 #print(return_result)
                 self.client.send(json.dumps(return_result).encode("utf-8"))
-                print(self.client.recv(1024))
+                print(self.client.recv(1024).decode("utf-8"))
             else:
                 self.Help()
+
+    def home(self, *args):
+        print("欢迎登录家目录")
+        print("""
+        可以对家目录的文件或者目录增删改查.
+        """)
+        while True:
+            action_input = input("请输入需要的操作,命令提示help>>").strip()
+            cmd_list = ["ls","rm","cd","mkdir",]
+            if len(action_input) == 0:
+                continue
+            if action_input == "Help":
+                self.Help()
+            elif action_input in cmd_list:
+                result_cmd = Home
+
 
     def Create_user_input(self):
         while True:
@@ -124,6 +144,12 @@ class FtpClient(object):
         }
         return msg_dir
 
+    def Home(self, action, user_name):
+        msf_dir = {
+            "action": action,
+            "user_name": user_name,
+            "home": user_name
+        }
 
 
 
