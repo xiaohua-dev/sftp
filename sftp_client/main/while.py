@@ -92,6 +92,7 @@ class FtpClient(object):
                 result_cmd = self.Home(action_input,result_front)
                 print("aaaaaaa")
                 print(result_cmd)
+                print(self.client.recv(1024))
 
     def Create_user_input(self):
         while True:
@@ -148,7 +149,7 @@ class FtpClient(object):
         }
         return msg_dir
 
-    def Home(self,command, user_name, action="home"):
+    def Home(self,command, user_name, action="Home"):
         msg_dir = {
             "action": action,
             "command": command,
