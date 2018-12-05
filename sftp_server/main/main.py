@@ -42,7 +42,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
     def Home(self,*args):
         data = json.loads(self.data.decode())
         print(data)
-        Json_result = data["command"]
+        Json_result = data["command"].strip()
         print(Json_result)
         if Json_result.split()[0] == "mkdir":
             command_result = os.popen('%s /home/%s/%s' %(Json_result.split()[0], data["home"]), Json_result.split()[1]).read()
