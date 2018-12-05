@@ -88,8 +88,8 @@ class FtpClient(object):
                 continue
             if action_input == "Help":
                 self.Help()
-            elif action_input in cmd_list:
-                result_cmd = self.Home(action_input,result_front)
+            elif action_input.split()[0] in cmd_list:
+                result_cmd = self.Home(action_input, result_front)
                 print("aaaaaaa")
                 self.client.send(json.dumps(result_cmd).encode("utf-8"))
                 print(result_cmd)
