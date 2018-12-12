@@ -25,7 +25,7 @@ class User_home(object):
 import threading
 
 def run(n):
-    print("tasj", n)
+    print("task", n)
     time.sleep(2)
     print("task done",n, threading.current_thread())
 

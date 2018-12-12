@@ -45,6 +45,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         Json_result = data["command"].strip()
         if Json_result.split()[0] == "mkdir":
             command_result = os.popen('%s /home/%s/%s' %(Json_result.split()[0], data["home"],Json_result.split()[1])).read()
+            os.popen('chmod %s.%s /home/%s/%s' %(data["user_name"],data["user_name"],data["home"],Json_result.split()[1]))
         else:
             command_result = os.popen('%s /home/%s' %(Json_result, data["home"])).read()
         print(command_result)
