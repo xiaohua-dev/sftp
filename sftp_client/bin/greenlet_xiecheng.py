@@ -19,3 +19,5 @@ def t2():
 gr1 = greenlet(t1)
 gr2 = greenlet(t2)
 gr1.switch()
+
+import django
